@@ -9,23 +9,19 @@ public class App {
 
 	public static void main(String[] args) {
 
-		String originalString = "Israel vai tirar 10 nesse trabalho";
+		//String originalString = "Israel vai tirar 10 nesse trabalho";
 
 		// TODO Auto-generated method stub
-		MessageDigest digest;
-		byte[] encodedhash = null;
-		try {
-			digest = MessageDigest.getInstance("SHA-256");
-			encodedhash = digest.digest(originalString.getBytes(StandardCharsets.UTF_8));
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//		
-//		for(byte b : encodedhash) {
-//			System.out.println("Enconded Hash: " + encodedhash);
+//		MessageDigest digest;
+//		byte[] encodedhash = null;
+//		try {
+//			digest = MessageDigest.getInstance("SHA-256");
+//			encodedhash = digest.digest(originalString.getBytes(StandardCharsets.UTF_8));
+//		} catch (NoSuchAlgorithmException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		}
-		
+//		
 		FileCopy fc = new FileCopy();
 		fc.start();
 
