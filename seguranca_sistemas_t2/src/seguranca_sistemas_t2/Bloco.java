@@ -2,40 +2,49 @@ package seguranca_sistemas_t2;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
+/**
+ * Data: 2019/1
+ * 
+ * @author Israel Deorce Vieira Junior
+ * @professor Avelino Zorzo
+ */
 public class Bloco {
 
-	private byte[] data;
-	private byte[] hash = new byte[32];
-	private byte[] fullBlock;
+	private byte[] data;	// Dados do bloco do video (1024 bytes)
+	private byte[] hash = new byte[32]; // Resultado da funcao Hash armazenada
+	private byte[] fullBlock;	// Dados completos do bloco concatenados: DATA + HASH (se existir)
 
+	/**
+	 * Construtor, recebe um array de dados (bytes) e copia-o
+	 * para data e fullBlock
+	 * @param data
+	 */
 	public Bloco(byte[] data) {
-		this.data = copyByteArray(data);
-		this.fullBlock = data;
-	}
-	
-	public byte[] copyByteArray(byte[] a) {
-		byte[] b = new byte[a.length];
-		for(int i=0; i<a.length; i++) {
-			b[i] = a[i];
-		}
-		return b;
+		this.data = data.clone();
+		this.fullBlock = this.data.clone();
 	}
 
+	/**
+	 * Calcula e devolve a função hash do fullBlock
+	 * @return
+	 */
 	public byte[] calculateHash() {
 		MessageDigest digest;
 		try {
 			digest = MessageDigest.getInstance("SHA-256");
 			this.hash = digest.digest(this.fullBlock);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return this.hash;
 	}
 	
-	// Concatena a hash recebida no fullBlock
+	/**
+	 *  Concatena a hash recebida no fullBlock
+	 * @param hash
+	 * @return
+	 */
 	public byte[] addHash(byte[] hash) {
 		this.fullBlock = new byte[this.data.length + hash.length];
 		System.arraycopy(data, 0, this.fullBlock, 0, this.data.length);
@@ -43,51 +52,16 @@ public class Bloco {
 		return this.fullBlock;
 	}
 
-	public String bytesToHex() {
-		StringBuffer hexString = new StringBuffer();
-		for (int i = 0; i < data.length; i++) {
-			String hex = Integer.toHexString(0xff & data[i]);
-			if (hex.length() == 1)
-				hexString.append('0');
-			hexString.append(hex);
-		}
-		//System.out.println("HexString: " + hexString.toString());
-		return hexString.toString();
-	}
+	/*--------------------- GETTERS AND SETTERS ---------------------*/
+	public byte[] getData() {return data;}
 
-	public String bytesToHex(byte[] data) {
-		StringBuffer hexString = new StringBuffer();
-		for (int i = 0; i < data.length; i++) {
-			String hex = Integer.toHexString(0xff & data[i]);
-			if (hex.length() == 1)
-				hexString.append('0');
-			hexString.append(hex);
-		}
-		//System.out.println("HexString: " + hexString.toString());
-		return hexString.toString();
-	}
+	public void setData(byte[] data) {this.data = data;}
 
-	public byte[] getData() {
-		return data;
-	}
+	public byte[] getHash() {return hash;}
 
-	public void setData(byte[] data) {
-		this.data = data;
-	}
+	public void setHash(byte[] hash) {this.hash = hash;}
 
-	public byte[] getHash() {
-		return hash;
-	}
+	public byte[] getFullBlock() {return fullBlock;}
 
-	public void setHash(byte[] hash) {
-		this.hash = hash;
-	}
-
-	public byte[] getFullBlock() {
-		return fullBlock;
-	}
-
-	public void setFullBlock(byte[] fullBlock) {
-		this.fullBlock = fullBlock;
-	}
+	public void setFullBlock(byte[] fullBlock) {this.fullBlock = fullBlock;}
 }
