@@ -2,36 +2,44 @@ package seguranca_sistemas_t2;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 public class Bloco {
 
 	private byte[] data;
-	private byte[] fullBlock;
 	private byte[] hash = new byte[32];
+	private byte[] fullBlock;
 
 	public Bloco(byte[] data) {
-		this.data = data;
+		this.data = copyByteArray(data);
 		this.fullBlock = data;
-		calculateHash();
+	}
+	
+	public byte[] copyByteArray(byte[] a) {
+		byte[] b = new byte[a.length];
+		for(int i=0; i<a.length; i++) {
+			b[i] = a[i];
+		}
+		return b;
 	}
 
 	public byte[] calculateHash() {
 		MessageDigest digest;
 		try {
 			digest = MessageDigest.getInstance("SHA-256");
-			hash = digest.digest(fullBlock);
+			this.hash = digest.digest(this.fullBlock);
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return hash;
+		return this.hash;
 	}
 	
 	// Concatena a hash recebida no fullBlock
 	public byte[] addHash(byte[] hash) {
-		fullBlock = new byte[data.length + hash.length];
-		System.arraycopy(data, 0, this.fullBlock, 0, data.length);
-		System.arraycopy(hash, 0, this.fullBlock, data.length, hash.length);		
+		this.fullBlock = new byte[this.data.length + hash.length];
+		System.arraycopy(data, 0, this.fullBlock, 0, this.data.length);
+		System.arraycopy(hash, 0, this.fullBlock, this.data.length, hash.length);		
 		return this.fullBlock;
 	}
 
@@ -43,7 +51,7 @@ public class Bloco {
 				hexString.append('0');
 			hexString.append(hex);
 		}
-		System.out.println("HexString: " + hexString.toString());
+		//System.out.println("HexString: " + hexString.toString());
 		return hexString.toString();
 	}
 
@@ -55,7 +63,7 @@ public class Bloco {
 				hexString.append('0');
 			hexString.append(hex);
 		}
-		System.out.println("HexString: " + hexString.toString());
+		//System.out.println("HexString: " + hexString.toString());
 		return hexString.toString();
 	}
 
@@ -82,5 +90,4 @@ public class Bloco {
 	public void setFullBlock(byte[] fullBlock) {
 		this.fullBlock = fullBlock;
 	}
-
 }

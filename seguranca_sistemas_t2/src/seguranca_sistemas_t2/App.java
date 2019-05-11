@@ -1,9 +1,5 @@
 package seguranca_sistemas_t2;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 // https://www.baeldung.com/sha-256-hashing-java
 public class App {
 
@@ -23,7 +19,7 @@ public class App {
 //		}
 //		
 		FileCopy fc = new FileCopy();
-		fc.start();
+		fc.start2();
 
 	}
 
