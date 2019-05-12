@@ -4,6 +4,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * Este relatório descreve uma alternativa de implementação para o exercício
+ * proposto no segundo trabalho da disciplina de Segurança de Sistemas. O
+ * exercício envolve o desenvolvimento de um programa que dado um arquivo de
+ * video, que seja este separado em blocos de bytes e que se garanta a
+ * integridade destes utilizando o "Algoritmo de Hash Seguro" SHA-256.
+ * Desenvolveu-se a solução proposta em linguagem Java utilizando-se de
+ * bibliotecas como a FileInputStream para leitura de dados, e a MessageDigest
+ * para geração da hash. A solução apresentada é de forma textual explicativa,
+ * acompanhada de pseudocódigo. 
  * Data: 2019/1
  * 
  * @author Israel Deorce Vieira Junior
